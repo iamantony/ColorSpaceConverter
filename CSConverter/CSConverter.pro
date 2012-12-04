@@ -6,12 +6,15 @@
 
 QT       += core gui
 
+CONFIG += warn_on
+QMAKE_CXXFLAGS_WARN_ON += -Wall -Wextra -Werror
+
 TARGET = CSConverter
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+		mainwindow.cpp
 
 HEADERS  += mainwindow.h
 
