@@ -276,6 +276,17 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>fromTypeCB</tabstop>
+  <tabstop>toTypeCB</tabstop>
+  <tabstop>firstCoordLE</tabstop>
+  <tabstop>secondCoordLE</tabstop>
+  <tabstop>thirdCoordLE</tabstop>
+  <tabstop>convertBtn</tabstop>
+  <tabstop>firstResultLE</tabstop>
+  <tabstop>secondResultLE</tabstop>
+  <tabstop>thirdResultLE</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

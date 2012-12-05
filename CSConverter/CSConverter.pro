@@ -14,8 +14,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-		mainwindow.cpp
+		mainwindow.cpp \
+    converterhandler.cpp \
+    CONVERTERS/defaultconverter.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    converterhandler.h \
+    DEFINES/enums.h \
+    CONVERTERS/defaultconverter.h
 
 FORMS    += mainwindow.ui

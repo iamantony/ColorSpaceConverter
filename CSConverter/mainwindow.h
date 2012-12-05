@@ -8,17 +8,18 @@
 #include <QPushButton>
 #include <QList>
 #include <QDebug>
+#include "DEFINES/enums.h"
 
 namespace Ui {
 	class MainWindow;
 }
 
-namespace CSTypes
+namespace States
 {
-	enum ColorSpace
+	enum ProgStates
 	{
-		RGB = 0,
-		LAB,
+		FREE = 0,
+		CALCULATIING,
 		DEFAULT_LAST
 	};
 }
@@ -27,7 +28,7 @@ struct Color
 {
 	CSTypes::ColorSpace m_type;
 	QString m_typeStr;
-	QList<QString> m_coordNames;
+	QStringList m_coordNames;
 };
 
 class MainWindow : public QMainWindow
@@ -59,6 +60,8 @@ private:
 
 	QList<Color *> m_colorSpaceTypes;
 
+	States::ProgStates m_states;
+
 
 	// == METHODS ==
 public:
@@ -68,8 +71,25 @@ public:
 private:
 	void Init();
 	void SetDefaults();
-	void FindGUIElements();
 	void FillColorTypesCombos();
+	void ClearAll();
+	QStringList FindColorSpaceCoords(const QString &t_type);
+	void SetUpInputZone(const QStringList &t_coords);
+	void SetUpOutputZone(const QStringList &t_coords);
+	CSTypes::ColorSpace FindCSType(const QString &t_typeStr);
+
+signals:
+	void SignalFromCSType(CSTypes::ColorSpace t_type);
+	void SignalToCSType(CSTypes::ColorSpace t_type);
+	void SignalStartConvertion(QStringList t_inputValues);
+
+public slots:
+	void SlotRecieveConvertionResult(QStringList t_results);
+
+private slots:
+	void on_fromTypeCB_currentIndexChanged(const QString &arg1);
+	void on_toTypeCB_currentIndexChanged(const QString &arg1);
+	void on_convertBtn_clicked();
 
 };
 

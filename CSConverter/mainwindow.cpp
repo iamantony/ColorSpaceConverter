@@ -12,13 +12,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+	ClearAll();
+
 	delete ui;
 }
 
 void MainWindow::Init()
 {
 	SetDefaults();
-	FindGUIElements();
 	FillColorTypesCombos();
 }
 
@@ -27,192 +28,162 @@ void MainWindow::SetDefaults()
 	Color *rgb = new Color();
 	rgb->m_type = CSTypes::RGB;
 	rgb->m_typeStr = "RGB";
-	rgb->m_coordNames << "R" << "G" << "B";
+	rgb->m_coordNames << "R:" << "G:" << "B:";
 	m_colorSpaceTypes.append(rgb);
 
 	Color *lab = new Color();
 	lab->m_type = CSTypes::LAB;
 	lab->m_typeStr = "LAB";
-	lab->m_coordNames << "L" << "A" << "B";
+	lab->m_coordNames << "L:" << "A:" << "B:";
 	m_colorSpaceTypes.append(lab);
+
+	m_states = States::FREE;
 }
-
-void MainWindow::FindGUIElements()
-{
-	// Find Combo Boxes
-	QList<QComboBox *> fromCBList = this->findChildren<QComboBox *>("fromTypeCB");
-	if ( true == fromCBList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find combo box";
-		this->close();
-	}
-	else
-	{
-		m_fromCB = fromCBList.at(0);
-	}
-
-	QList<QComboBox *> toCBList = this->findChildren<QComboBox *>("fromTypeCB");
-	if ( true == toCBList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find combo box";
-		this->close();
-	}
-	else
-	{
-		m_toCB = toCBList.at(0);
-	}
-
-	// Find labels for input color coordinates
-	QList<QLabel *> firstCoordLblList = this->findChildren<QLabel *>("firstCoordLbl");
-	if ( true == firstCoordLblList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find label";
-		this->close();
-	}
-	else
-	{
-		m_firstCoordLbl = firstCoordLblList.at(0);
-	}
-
-	QList<QLabel *> secondCoordLblList = this->findChildren<QLabel *>("secondCoordLbl");
-	if ( true == secondCoordLblList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find label";
-		this->close();
-	}
-	else
-	{
-		m_secondCoordLbl = secondCoordLblList.at(0);
-	}
-
-	QList<QLabel *> thirdCoordLblList = this->findChildren<QLabel *>("thirdCoordLbl");
-	if ( true == thirdCoordLblList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find label";
-		this->close();
-	}
-	else
-	{
-		m_thirdCoordLbl = thirdCoordLblList.at(0);
-	}
-
-	// Find line edits for input coords
-	QList<QLineEdit *> firstCoordLEList = this->findChildren<QLineEdit *>("firstCoordLE");
-	if ( true == firstCoordLEList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find line edit";
-		this->close();
-	}
-	else
-	{
-		m_firstCoordLE = firstCoordLEList.at(0);
-	}
-
-	QList<QLineEdit *> secondCoordLEList = this->findChildren<QLineEdit *>("secondCoordLE");
-	if ( true == secondCoordLEList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find line edit";
-		this->close();
-	}
-	else
-	{
-		m_secondCoordLE = secondCoordLEList.at(0);
-	}
-
-	QList<QLineEdit *> thirdCoordLEList = this->findChildren<QLineEdit *>("thirdCoordLE");
-	if ( true == thirdCoordLEList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find line edit";
-		this->close();
-	}
-	else
-	{
-		m_thirdCoordLE = thirdCoordLEList.at(0);
-	}
-
-	// Find labels for reslut color coordinates
-	QList<QLabel *> firstResultLblList = this->findChildren<QLabel *>("firstResultLbl");
-	if ( true == firstResultLblList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find label";
-		this->close();
-	}
-	else
-	{
-		m_firstResultLbl = firstResultLblList.at(0);
-	}
-
-	QList<QLabel *> secondResultLblList = this->findChildren<QLabel *>("secondResultLbl");
-	if ( true == secondResultLblList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find label";
-		this->close();
-	}
-	else
-	{
-		m_secondResultLbl = secondResultLblList.at(0);
-	}
-
-	QList<QLabel *> thirdResultLblList = this->findChildren<QLabel *>("thirdResultLbl");
-	if ( true == thirdResultLblList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find label";
-		this->close();
-	}
-	else
-	{
-		m_thirdResultLbl = thirdResultLblList.at(0);
-	}
-
-	// Find line edits for result coords
-	QList<QLineEdit *> firstResultLEList = this->findChildren<QLineEdit *>("firstResultLE");
-	if ( true == firstResultLEList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find line edit";
-		this->close();
-	}
-	else
-	{
-		m_firstResultLE = firstResultLEList.at(0);
-	}
-
-	QList<QLineEdit *> secondResultLEList = this->findChildren<QLineEdit *>("secondResultLE");
-	if ( true == secondResultLEList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find line edit";
-		this->close();
-	}
-	else
-	{
-		m_secondResultLE = secondResultLEList.at(0);
-	}
-
-	QList<QLineEdit *> thirdResultLEList = this->findChildren<QLineEdit *>("thirdResultLE");
-	if ( true == thirdResultLEList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find line edit";
-		this->close();
-	}
-	else
-	{
-		m_thirdResultLE = thirdResultLEList.at(0);
-	}
-
-	// Find button
-	QList<QPushButton *> startBtnList = this->findChildren<QPushButton *>("convertBtn");
-	if ( true == startBtnList.isEmpty() )
-	{
-		qDebug() << "MainWindow::FindGUIElements(): Error - can't find push button";
-		this->close();
-	}
-	else
-	{
-		m_convertBtn = startBtnList.at(0);
-	}
-}
-
 
 void MainWindow::FillColorTypesCombos()
 {
+	QStringList colorSpaces;
 
+	for ( int i = 0; i < m_colorSpaceTypes.size(); i++ )
+	{
+		colorSpaces.append(m_colorSpaceTypes.at(i)->m_typeStr);
+	}
+
+	ui->fromTypeCB->addItems(colorSpaces);
+	ui->toTypeCB->addItems(colorSpaces);
+}
+
+void MainWindow::ClearAll()
+{
+	for (int i = m_colorSpaceTypes.size() - 1; i >= 0; i--)
+	{
+		Color *color = m_colorSpaceTypes.takeAt(i);
+		delete color;
+	}
+}
+
+QStringList MainWindow::FindColorSpaceCoords(const QString &t_type)
+{
+	for ( int i = 0; i < m_colorSpaceTypes.size(); i++ )
+	{
+		if ( t_type == m_colorSpaceTypes.at(i)->m_typeStr )
+		{
+			return m_colorSpaceTypes.at(i)->m_coordNames;
+		}
+	}
+
+	qDebug() << "MainWindow::FindColorSpaceCoords(): Error - can't find list of color coords";
+	QStringList emptyList;
+	return emptyList;
+}
+
+void MainWindow::SetUpInputZone(const QStringList &t_coords)
+{
+	if ( true == t_coords.isEmpty() )
+	{
+		qDebug() << "MainWindow::SetUpInputZone(): Error - list of coordinates is empty";
+		return;
+	}
+
+	if ( 3 != t_coords.size() )
+	{
+		qDebug() << "MainWindow::SetUpInputZone(): Error - wrong size of list of coordinates";
+		return;
+	}
+
+	ui->firstCoordLbl->setText(t_coords.at(0));
+	ui->secondCoordLbl->setText(t_coords.at(1));
+	ui->thirdCoordLbl->setText(t_coords.at(2));
+
+	ui->firstCoordLE->clear();
+	ui->secondCoordLE->clear();
+	ui->thirdCoordLE->clear();
+}
+
+void MainWindow::SetUpOutputZone(const QStringList &t_coords)
+{
+	if ( true == t_coords.isEmpty() )
+	{
+		qDebug() << "MainWindow::SetUpInputZone(): Error - list of coordinates is empty";
+		return;
+	}
+
+	if ( 3 != t_coords.size() )
+	{
+		qDebug() << "MainWindow::SetUpInputZone(): Error - wrong size of list of coordinates";
+		return;
+	}
+
+	ui->firstResultLbl->setText(t_coords.at(0));
+	ui->secondResultLbl->setText(t_coords.at(1));
+	ui->thirdResultLbl->setText(t_coords.at(2));
+
+	ui->firstResultLE->clear();
+	ui->secondResultLE->clear();
+	ui->thirdResultLE->clear();
+}
+
+CSTypes::ColorSpace MainWindow::FindCSType(const QString &t_typeStr)
+{
+	CSTypes::ColorSpace type = CSTypes::DEFAULT_LAST;
+
+	for ( int i = 0; i < m_colorSpaceTypes.size(); i++ )
+	{
+		if ( t_typeStr == m_colorSpaceTypes.at(i)->m_typeStr )
+		{
+			type = m_colorSpaceTypes.at(i)->m_type;
+		}
+	}
+
+	return type;
+}
+
+void MainWindow::on_fromTypeCB_currentIndexChanged(const QString &arg1)
+{
+	QStringList coords = FindColorSpaceCoords(arg1);
+	SetUpInputZone(coords);
+
+	CSTypes::ColorSpace type = FindCSType(arg1);
+	emit SignalFromCSType(type);
+}
+
+void MainWindow::on_toTypeCB_currentIndexChanged(const QString &arg1)
+{
+	QStringList coords = FindColorSpaceCoords(arg1);
+	SetUpOutputZone(coords);
+
+	CSTypes::ColorSpace type = FindCSType(arg1);
+	emit SignalToCSType(type);
+}
+
+void MainWindow::on_convertBtn_clicked()
+{
+	if ( States::CALCULATIING == m_states )
+	{
+		return;
+	}
+
+	m_states = States::CALCULATIING;
+
+	QStringList inputCoords;
+	inputCoords.append(ui->firstCoordLE->text());
+	inputCoords.append(ui->secondCoordLE->text());
+	inputCoords.append(ui->thirdCoordLE->text());
+
+	emit SignalStartConvertion(inputCoords);
+}
+
+void MainWindow::SlotRecieveConvertionResult(QStringList t_results)
+{
+	m_states = States::FREE;
+
+	if ( 3 != t_results.size() )
+	{
+		qDebug() << "MainWindow::SlotRecieveConvertionResult(): Error - list of results has wrong size";
+		return;
+	}
+
+	ui->firstResultLE->setText(t_results.at(0));
+	ui->secondResultLE->setText(t_results.at(1));
+	ui->thirdResultLE->setText(t_results.at(2));
 }
