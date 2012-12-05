@@ -91,9 +91,9 @@ void MainWindow::SetUpInputZone(const QStringList &t_coords)
 		return;
 	}
 
-	ui->firstCoordLbl->setText(t_coords.at(0));
-	ui->secondCoordLbl->setText(t_coords.at(1));
-	ui->thirdCoordLbl->setText(t_coords.at(2));
+	ui->firstCoordLbl->setText(t_coords.at(FIRST));
+	ui->secondCoordLbl->setText(t_coords.at(SECOND));
+	ui->thirdCoordLbl->setText(t_coords.at(THIRD));
 
 	ui->firstCoordLE->clear();
 	ui->secondCoordLE->clear();
@@ -114,9 +114,9 @@ void MainWindow::SetUpOutputZone(const QStringList &t_coords)
 		return;
 	}
 
-	ui->firstResultLbl->setText(t_coords.at(0));
-	ui->secondResultLbl->setText(t_coords.at(1));
-	ui->thirdResultLbl->setText(t_coords.at(2));
+	ui->firstResultLbl->setText(t_coords.at(FIRST));
+	ui->secondResultLbl->setText(t_coords.at(SECOND));
+	ui->thirdResultLbl->setText(t_coords.at(THIRD));
 
 	ui->firstResultLE->clear();
 	ui->secondResultLE->clear();
@@ -183,7 +183,12 @@ void MainWindow::SlotRecieveConvertionResult(QStringList t_results)
 		return;
 	}
 
-	ui->firstResultLE->setText(t_results.at(0));
-	ui->secondResultLE->setText(t_results.at(1));
-	ui->thirdResultLE->setText(t_results.at(2));
+	ui->firstResultLE->setText(t_results.at(FIRST));
+	ui->secondResultLE->setText(t_results.at(SECOND));
+	ui->thirdResultLE->setText(t_results.at(THIRD));
+}
+
+void MainWindow::SlotConvertionFailed()
+{
+	m_states = States::FREE;
 }

@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
 	QObject::connect(&convHandler, SIGNAL(SignalSendResultCoords(QStringList)),
 			&w, SLOT(SlotRecieveConvertionResult(QStringList)));
 
+	QObject::connect(&convHandler, SIGNAL(SignalConvertionFailed()),
+			&w, SLOT(SlotConvertionFailed()));
+
 	w.show();
 
 	return a.exec();

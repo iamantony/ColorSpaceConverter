@@ -9,6 +9,7 @@
 #include <QList>
 #include <QDebug>
 #include "DEFINES/enums.h"
+#include "DEFINES/commons.h"
 
 namespace Ui {
 	class MainWindow;
@@ -38,30 +39,8 @@ class MainWindow : public QMainWindow
 	// == DATA ==
 private:
 	Ui::MainWindow *ui;
-
-	QComboBox *m_fromCB;
-	QComboBox *m_toCB;
-
-	QLabel *m_firstCoordLbl;
-	QLabel *m_secondCoordLbl;
-	QLabel *m_thirdCoordLbl;
-	QLineEdit *m_firstCoordLE;
-	QLineEdit *m_secondCoordLE;
-	QLineEdit *m_thirdCoordLE;
-
-	QLabel *m_firstResultLbl;
-	QLabel *m_secondResultLbl;
-	QLabel *m_thirdResultLbl;
-	QLineEdit *m_firstResultLE;
-	QLineEdit *m_secondResultLE;
-	QLineEdit *m_thirdResultLE;
-
-	QPushButton *m_convertBtn;
-
 	QList<Color *> m_colorSpaceTypes;
-
 	States::ProgStates m_states;
-
 
 	// == METHODS ==
 public:
@@ -85,6 +64,7 @@ signals:
 
 public slots:
 	void SlotRecieveConvertionResult(QStringList t_results);
+	void SlotConvertionFailed();
 
 private slots:
 	void on_fromTypeCB_currentIndexChanged(const QString &arg1);

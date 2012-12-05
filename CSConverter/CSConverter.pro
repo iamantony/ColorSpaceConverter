@@ -16,11 +16,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
 		mainwindow.cpp \
     converterhandler.cpp \
-    CONVERTERS/defaultconverter.cpp
+    CONVERTERS/convertrgb2lab.cpp \
+    CONVERTERS/convertlab2rgb.cpp
 
 HEADERS  += mainwindow.h \
     converterhandler.h \
     DEFINES/enums.h \
-    CONVERTERS/defaultconverter.h
+    DEFINES/commons.h \
+    CONVERTERS/convertrgb2lab.h \
+    CONVERTERS/convertlab2rgb.h
 
 FORMS    += mainwindow.ui
