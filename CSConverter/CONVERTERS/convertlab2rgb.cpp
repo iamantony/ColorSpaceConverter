@@ -3,6 +3,7 @@
 ConvertLab2Rgb::ConvertLab2Rgb(QObject *parent) :
 	QObject(parent)
 {
+
 }
 
 QList<int> ConvertLab2Rgb::Convert(const double &t_LL,

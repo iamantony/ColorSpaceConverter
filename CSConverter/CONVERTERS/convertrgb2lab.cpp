@@ -3,6 +3,7 @@
 ConvertRgb2Lab::ConvertRgb2Lab(QObject *parent) :
 	QObject(parent)
 {
+
 }
 
 QList<double> ConvertRgb2Lab::Convert(const int &t_Red,
@@ -43,19 +44,19 @@ QList<double> ConvertRgb2Lab::Convert(const int &t_Red,
 	double M = 0.1967*R + 0.7244*G + 0.0782*B;
 	double S = 0.0241*R + 0.1288*G + 0.8444*B;
 
-	if ( L == 0 )
+	if ( L < 0.01 )
 	{
-		L = 0.0001;
+		L = 0.01;
 	}
 
-	if ( M == 0 )
+	if ( M < 0.01 )
 	{
-		M = 0.0001;
+		M = 0.01;
 	}
 
-	if ( S == 0 )
+	if ( S < 0.01 )
 	{
-		S = 0.0001;
+		S = 0.01;
 	}
 
 	L = log10(L);
@@ -65,6 +66,11 @@ QList<double> ConvertRgb2Lab::Convert(const int &t_Red,
 	double LL = 0.5774*L + 0.5774*M + 0.5774*S;
 	double AA = 0.4082*L + 0.4082*M - 0.8165*S;
 	double BB = 0.7071*L - 0.7071*M;
+
+	if ( LL < 0.01 )
+	{
+		LL = 0;
+	}
 
 	QList<double> massLAB;
 	massLAB << LL << AA << BB;
